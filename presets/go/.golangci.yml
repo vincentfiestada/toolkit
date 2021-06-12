@@ -1,0 +1,33 @@
+linters:
+  enable:
+    - asciicheck
+    - deadcode
+    - depguard
+    - dupl
+    - errcheck
+    - errorlint
+    - exhaustive
+    - funlen
+    - gci
+    - gocognit
+    - goconst
+    - gocyclo
+    - golint
+    - gomodguard
+    - gosimple
+    - govet
+    - ifshort
+    - ineffassign
+    - maligned
+    - misspell
+    - nakedret
+    - nestif
+    - nlreturn
+    - prealloc
+    - predeclared
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unconvert
+    - unused
+    - varcheck
