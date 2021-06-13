@@ -112,7 +112,7 @@ function Invoke-GoTests {
     $e = [CodeErrorCollection]::new()
 
     $timeStart = (Get-Date)
-    go test ./... --cover --json 2>&1 | ForEach-Object {
+    go test './...' --cover --json 2>&1 | ForEach-Object {
         $log = $_
         try {
             $x = ConvertFrom-Json $log
