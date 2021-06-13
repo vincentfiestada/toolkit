@@ -17,9 +17,10 @@ Copy-Item go-tools.ps1   ~/project/dir/tools.ps1
 
 By default, the following commands are available:
 
-- **install** - check the dev environment and install the project
+- **help** - list available commands
+- **install** - check dev environment and install project
 - **format** - apply style guide and tidy dependencies
-- **check** - check for issues using linters
+- **check** - detect issues using linters
 - **fix** - apply autofixes suggested by linters
 - **test** - run all tests with coverage
 - **run** _[args]_ - compile and run

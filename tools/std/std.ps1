@@ -2,6 +2,27 @@
 
 $env:LOG_PADDING = 5
 
+class Tool {
+    [String]$Command
+    [String]$Example
+    [String]$Description
+    [ScriptBlock]$Script
+
+    Tool([String]$Command, [String]$Description, [ScriptBlock]$Script) {
+        $this.Command = $Command
+        $this.Example = $Command
+        $this.Description = $Description
+        $this.Script = $Script
+    }
+
+    Tool([String]$Command, [String]$Example, [String]$Description, [ScriptBlock]$Script) {
+        $this.Command = $Command
+        $this.Example = $Example
+        $this.Description = $Description
+        $this.Script = $Script
+    }
+}
+
 class CodeError {
     [String]$File
     [String[]]$Text
@@ -100,6 +121,7 @@ class CodeIssue {
         Write-Host ''
     }
 }
+
 
 <#
 .SYNOPSIS

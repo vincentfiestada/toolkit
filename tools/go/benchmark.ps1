@@ -21,10 +21,10 @@ function Invoke-GoBenchmarks {
     Write-Host ''
     Write-Divider
     if (Assert-ExitCode 0) {
-            Write-Ok "benchmarks completed in $durationSeconds s"
+        Write-Ok "benchmarks completed in $durationSeconds s"
     } else {
-            Write-Fail "encountered an error while running benchmarks"
-            exit [Error]::Fail
+        Write-Fail "encountered an error while running benchmarks"
+        exit [Error]::Fail
     }
 }
 

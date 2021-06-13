@@ -1,6 +1,7 @@
 # Copyright 2021 Vincent Fiestada
 
 . (Join-Path 'tools' 'std' 'std.ps1')
+. (Join-Path 'tools' 'std' 'help.ps1')
 . (Join-Path 'tools' 'go' 'install.ps1')
 . (Join-Path 'tools' 'go' 'format.ps1')
 . (Join-Path 'tools' 'go' 'check.ps1')
@@ -22,40 +23,81 @@ function Invoke-Tools {
         exit [Errors]::NoCommand
     }
 
-    switch ($Command.ToLower()) {
-        'install' {
-            Install-GoProject
-        }
-        'format' {
-            Invoke-GoFormat
-        }
-        'check' {
-            Invoke-GoChecks
-        }
-        'fix' {
-            Invoke-GoChecks -Fix
-        }
-        'test' {
-            Invoke-GoTests
-        }
-        'run' {
-            Invoke-GoRun $Arguments
-        }
-        'publish' {
-            Publish-GoModule $Arguments[0]
-        }
+    $tools = @(
+        [Tool]::new(
+            'help',
+            'list available commands',
+            {
+                Get-Toolkit $tools
+            }
+        ),
+        [Tool]::new(
+            'install',
+            'check dev environment and install project',
+            {
+                Install-GoProject
+            }
+        ),
+        [Tool]::new(
+            'format',
+            'apply style guide and tidy dependencies',
+            {
+                Invoke-GoFormat
+            }
+        ),
+        [Tool]::new(
+            'check',
+            'detect issues using linters',
+            {
+                Invoke-GoChecks
+            }
+        ),
+        [Tool]::new(
+            'fix',
+            'apply autofixes suggested by linters',
+            {
+                Invoke-GoChecks -Fix
+            }
+        ),
+        [Tool]::new(
+            'test',
+            'run all tests with coverage',
+            {
+                Invoke-GoTests
+            }
+        ),
+        [Tool]::new(
+            'run',
+            "run `e[3m[args]`e[3m",
+            'compile and run',
+            {
+                Invoke-GoRun $Arguments
+            }
+        ),
+        [Tool]::new(
+            'publish',
+            "publish `e[3mversion`e[3m",
+            'publish a version to pkg.go.dev',
+            {
+                Publish-GoModule $Arguments[0]
+            }
+        )
+    )
 
-        default {
-            Write-Error "invalid command '$Command'"
-            exit [Error]::InvalidCommand
-        }
+    $target = $tools | Where-Object { $_.Command -eq $Command }
+    if (-not $target) {
+        Write-Error "invalid command '$Command'"
+        exit [Error]::InvalidCommand
     }
 
+    Invoke-Command -ScriptBlock $target.Script
 }
 
 enum Error {
     NoCommand = 1
-    InvalidCommand = 2
 }
 
-Invoke-Tools $args[0] $args[1..($args.Length - 1)]
+$command = $args[0]
+$arguments = $args[1..($args.Length - 1)]
+
+Invoke-Tools $command $arguments
