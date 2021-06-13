@@ -45,13 +45,6 @@ function Confirm-Ready {
         Write-Error 'go is required'
         exit [Error]::NoGo
     }
-    # golangci-lint must be installed
-    if (-not (Get-Command -Name "golangci-lint" -ErrorAction SilentlyContinue)) {
-        Write-Error "golangci-lint is not installed"
-        exit [Error]::NoGoLinter
-    } else {
-        Write-Ok "golangci-lint is installed"
-    }
     # go modules must be enabled
     if ($env:GO111MODULE -ne 'on') {
         Write-Error 'go modules should be enabled'
@@ -68,6 +61,12 @@ function Confirm-Ready {
         Write-Warning "go v$target should be installed"
     } else {
         Write-Ok "go v$target is installed"
+    }
+    # golangci-lint should be installed
+    if (-not (Get-Command -Name "golangci-lint" -ErrorAction SilentlyContinue)) {
+        Write-Warning "golangci-lint is not installed"
+    } else {
+        Write-Ok "golangci-lint is installed"
     }
 }
 
@@ -125,7 +124,6 @@ function Install-Hooks {
 
 enum Error {
     NoGo = 1
-    NoGoLinter = 2
-    InvalidGoMod = 3
-    InvalidGoEnv = 4
+    InvalidGoMod = 2
+    InvalidGoEnv = 3
 }
