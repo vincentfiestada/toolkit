@@ -11,8 +11,8 @@
 
 function Invoke-Tools {
     param(
-        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
-        [String] $Command,
+        [Parameter(ValueFromPipeline=$true)]
+        [String] $Command = '',
 
         [Parameter(ValueFromPipeline=$true)]
         [String[]] $Arguments = @()
