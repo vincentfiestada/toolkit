@@ -81,6 +81,8 @@ Install and verify the project dependencies
 Confirm-Environment
 #>
 function Install-Dependencies {
+    (go mod download > $null)
+
     if ((go mod verify) -and (Assert-ExitCode 0)) {
         Write-Ok 'module dependencies verified'
     }
