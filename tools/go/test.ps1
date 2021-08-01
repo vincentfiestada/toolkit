@@ -84,10 +84,19 @@ class GoTestCollection {
     [HashTable]Count() {
         $pkgs = $this.Packages.Values
         return @{
-            [Result]::Skip = $pkgs | foreach { $count = 0 } { $count += ($_.FindByResult([Result]::Skip)).Count } { $count };
-            [Result]::Pass = $pkgs | foreach { $count = 0 } { $count += ($_.FindByResult([Result]::Pass)).Count } { $count };
-            [Result]::Fail = $pkgs | foreach { $count = 0 } { $count += ($_.FindByResult([Result]::Fail)).Count } { $count }
+            [Result]::Skip = $this.CountTestResultsByResult($pkgs, [Result]::Skip);
+            [Result]::Pass = $this.CountTestResultsByResult($pkgs, [Result]::Pass);
+            [Result]::Fail = $this.CountTestResultsByResult($pkgs, [Result]::Fail)
         }
+    }
+
+    [Int]CountTestResultsByResult([GoPackage[]]$Packages, [Result]$Result) {
+        $count = 0
+        foreach ($pkg in $Packages) {
+            $count += $pkg.FindByResult($Result).Count
+        }
+        
+        return $count
     }
 
     Write() {
