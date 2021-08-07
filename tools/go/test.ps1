@@ -203,7 +203,7 @@ function Invoke-GoTests {
             }
         } elseif ($package) {
             $coverage_pattern = 'coverage: (?<coverage>[0-9\.]+)% of statements'
-            $no_tests_pattern = '[no test files]'
+            $no_tests_pattern = '\[no test files\]'
 
             switch -Regex ($log) {
                 $coverage_pattern {
