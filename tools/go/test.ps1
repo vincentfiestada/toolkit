@@ -172,7 +172,9 @@ function Invoke-GoTests {
         catch {
             $code_error_pattern = '^(?<file>.+):(?<loc>[0-9]+:[0-9]+): (?<txt>.*)$'
             if ($log -match $code_error_pattern) {
-                $e.Add($log, $code_error_pattern)
+                $parsed = Select-String -Pattern $code_error_pattern -InputObject $log
+                $path, $loc, $txt = $parsed.Matches.Groups[1..3].Value
+                $e.Add($path, $loc, $txt)
             }
         }
 
