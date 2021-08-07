@@ -116,6 +116,11 @@ Optimize-Imports
 function Optimize-Imports {
     $errs = [CodeErrorCollection]::new()
 
+    if (-not (Get-Command -Name (Join-Path $env:GOBIN 'gci') -ErrorAction SilentlyContinue)) {
+        Write-Warning 'unable to optimize imports'
+        return $errs.Errors
+    }
+
     Invoke-Expression "$(Join-Path $env:GOBIN 'gci') -w ." 2>&1 | ForEach-Object {
         $log = $_
 
