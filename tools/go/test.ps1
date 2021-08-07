@@ -142,6 +142,17 @@ class GoTestCollection {
         return $count
     }
 
+    [Double]Coverage() {
+        $cov = 0.0
+        $pkgs = $this.Packages.Values
+        
+        foreach ($pkg in $pkgs) {
+            $cov += $pkg.Coverage
+        }
+
+        return $cov / $pkgs.Count
+    }
+
     Write() {
         foreach ($package in $this.Packages.Values) {
             $package.Write()
@@ -246,6 +257,9 @@ function Invoke-GoTests {
     }
     if ($results.Length -lt 1) {
         $results += "no tests ran"
+    } else {
+        $coverage = $t.Coverage().ToString("#.##")
+        $results += "$coverage% coverage"
     }
     
     $duration = ($timeStop - $timeStart).TotalSeconds
