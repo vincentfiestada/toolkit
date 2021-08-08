@@ -2,6 +2,9 @@
 
 # toolkit
 
+[![Conventional Commits](https://img.shields.io/badge/commits-conventional-0047ab.svg?labelColor=16161b)](https://conventionalcommits.org)
+[![License: BSD Zero Clause](https://img.shields.io/github/license/vncntx/toolkit.svg?labelColor=16161b&color=0047ab)](./LICENSE)
+
 A collection of modular tools for building software projects in Go
 
 ## Usage
@@ -12,7 +15,6 @@ These tools are written for [PowerShell Core](https://microsoft.com/PowerShell).
 Copy-Item tools -Recurse ~/project/dir/
 Copy-Item presets/go/*   ~/project/dir/
 Copy-Item go-tools.ps1   ~/project/dir/tools.ps1
-
 ```
 
 By default, the following commands are available:
@@ -28,6 +30,6 @@ By default, the following commands are available:
 
 ## Copyright
 
-Copyright 2021 [Vincent Fiestada](mailto:vincent@vincent.click). This project is released under a [BSD-3-Clause License](./LICENSE).
+Copyright 2021 [Vincent Fiestada](mailto:vincent@vincent.click). This project is released under a [BSD Zero Clause License](./LICENSE).
 
 Icon made by [photo3idea](https://www.flaticon.com/authors/photo3idea-studio).
