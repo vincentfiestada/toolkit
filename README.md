@@ -9,4 +9,4 @@ A collection of modular tools for building software projects
 
 ## Copyright
 
-Copyright 2021 [Vincent Fiestada](mailto:vincent@vincent.click). This project is released under an [MIT No Attribution](./LICENSE).
+Copyright 2021 [Vincent Fiestada](mailto:vincent@vincent.click). This project is released under an [MIT No Attribution License](./LICENSE).
