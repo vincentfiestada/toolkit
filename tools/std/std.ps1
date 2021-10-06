@@ -120,7 +120,6 @@ class CodeIssue {
     }
 }
 
-
 <#
 .SYNOPSIS
 Verify the last command's exit code
@@ -315,4 +314,28 @@ function Pluralize {
     }
 
     return $Word + 's'
+}
+
+<#
+.SYNOPSIS
+Check if a path is a directory
+
+.DESCRIPTION
+Returns false if the path is null, doesn't exist, or not a directory
+
+.EXAMPLE
+Confirm-IsDirectory .\dir
+#>
+function Confirm-IsDirectory {
+    param(
+        [Parameter(ValueFromPipeline=$true)]
+        [String]$Path
+    )
+
+    if ($null -eq $Path -or $Path.Length -le 1) {
+        return $false
+    }
+
+    $dir = (Get-Item $Path -ErrorAction SilentlyContinue)
+    return (($null -ne $dir) -and ($dir -is [System.IO.DirectoryInfo]))
 }
