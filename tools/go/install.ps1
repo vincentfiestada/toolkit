@@ -7,20 +7,16 @@
 .SYNOPSIS
 Install dependencies
 
-.DESCRIPTION
-Ensure all dependencies and tools are installed
-
 .EXAMPLE
 Install-Project
 #>
 function Install-GoProject {
-    Write-Info 'checking environment'
+    Write-Info 'inspecting environment'
     Confirm-Ready
 
-    Write-Info 'checking dependencies'
+    Write-Info 'installing dependencies'
     Install-Dependencies
-
-    Write-Info 'checking for available git hooks'
+    
     Install-Hooks
     
     Write-Divider
@@ -118,6 +114,7 @@ function Install-Hooks {
         (Test-Path '.git' -ErrorAction SilentlyContinue) -And
         (Test-Path 'hooks' -ErrorAction SilentlyContinue)
     )) {
+        Write-Info 'no git hooks found'
         return
     }
 
