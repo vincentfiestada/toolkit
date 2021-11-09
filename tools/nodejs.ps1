@@ -3,6 +3,7 @@
 
 . (Join-Path 'tools' 'std' 'std.ps1')
 . (Join-Path 'tools' 'std' 'help.ps1')
+. (Join-Path 'tools' 'nodejs' 'run.ps1')
 . (Join-Path 'tools' 'nodejs' 'install.ps1')
 
 function Invoke-Tools {
@@ -32,6 +33,20 @@ function Invoke-Tools {
             'check dev environment and install project',
             {
                 Install-NodeJSProject
+            }
+        ),
+        [Tool]::new(
+            'format',
+            'apply prettier style guide',
+            {
+                Invoke-NpmScript format
+            }
+        ),
+        [Tool]::new(
+            'start',
+            'run development server with live reload',
+            {
+                Invoke-NpmScript start
             }
         )
     )
