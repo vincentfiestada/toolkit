@@ -61,7 +61,7 @@ Install and verify dependencies
 Install and verify the project dependencies
 
 .EXAMPLE
-Confirm-Environment
+Install-Dependencies
 #>
 function Install-Dependencies {
     $NPM_INFO_PATTERN = '^npm info (?<message>.+)$'
