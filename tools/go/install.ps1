@@ -1,6 +1,7 @@
 # Copyright 2021 Vincent Fiestada
 
 . (Join-Path 'tools' 'std' 'std.ps1')
+. (Join-Path 'tools' 'std' 'install.ps1')
 . (Join-Path 'tools' 'go' 'mod.ps1')
 
 <#
@@ -27,9 +28,6 @@ function Install-GoProject {
 .SYNOPSIS
 Verify the build environment
 
-.DESCRIPTION
-Verify the build environment is set up correctly
-
 .EXAMPLE
 Confirm-Ready
 #>
@@ -51,19 +49,19 @@ function Confirm-Ready {
 
     # optional checks (warnings)
 
-    # target go version should be installed
+    # target go version must be installed
     $target = (Get-GoModule).Target
     if (-not (go version | Select-String -SimpleMatch "go$target")) {
         Write-Warning "go v$target should be installed"
     } else {
         Write-Ok "go v$target is installed"
     }
-    
+    # $env:GOBIN must be set
     if (-not $env:GOBIN) {
         Write-Warning '$env:GOBIN is not set'
         return
     }
-    # golangci-lint should be installed
+    # golangci-lint must be installed
     if (-not (Get-Command -Name (Join-Path $env:GOBIN 'golangci-lint') -ErrorAction SilentlyContinue)) {
         Write-Warning 'golangci-lint is not installed. [https://golangci-lint.run/]'
     } else {
@@ -97,39 +95,6 @@ function Install-Dependencies {
         Write-Fail 'cannot verify dependencies'
         exit [Error]::InvalidGoMod
     }
-}
-
-<#
-.SYNOPSIS
-Install git hooks
-
-.DESCRIPTION
-Copy this project's git hooks into the .git directory
-
-.EXAMPLE
-Install-Hooks
-#>
-function Install-Hooks {
-    if (-Not (
-        (Test-Path '.git' -ErrorAction SilentlyContinue) -And
-        (Test-Path 'hooks' -ErrorAction SilentlyContinue)
-    )) {
-        Write-Info 'no git hooks found'
-        return
-    }
-
-    New-Item -Type Directory -Force (Join-Path ".git" "hooks") > $null
-    foreach ($file in (Get-ChildItem (Join-Path "hooks" "*.*"))) {
-        $name = $file.BaseName
-        $dest = (Join-Path ".git" "hooks" $name)
-        Write-Info "installing $name hook"
-
-        Copy-Item $file $dest
-        if (Get-Command chmod -ErrorAction SilentlyContinue) {
-            chmod +x $dest
-        }
-    }
-    Write-Ok "git hooks installed"
 }
 
 enum Error {

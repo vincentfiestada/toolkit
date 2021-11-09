@@ -15,16 +15,15 @@ if (-not (Confirm-IsDirectory $target)) {
 $toolsDir = (Join-Path $target 'tools')
 $toolkitScript = (Join-Path $target 'tools.ps1')
 
-Copy-Item -Recurse -Force presets/go/* $target
 if (-not (Test-Path $toolsDir)) {
     New-Item -ItemType Directory -Name $toolsDir > $null
 }
 Copy-Item -Recurse -Force tools/std $toolsDir
-Copy-Item -Recurse -Force tools/go $toolsDir
+Copy-Item -Recurse -Force tools/nodejs $toolsDir
 if (Test-Path $toolkitScript) {
-    Write-Warning "go toolkit already installed in '$target'"
+    Write-Warning "nodejs toolkit already installed in '$target'"
 } else {
-    Copy-Item -Force tools/go.ps1 $toolkitScript
+    Copy-Item -Force tools/nodejs.ps1 $toolkitScript
 }
 
-Write-Ok "go toolkit installed in '$target'"
+Write-Ok "nodejs toolkit installed in '$target'"
