@@ -259,12 +259,12 @@ function Invoke-GoTests {
         $results += "$c skipped"
     }
     if ($e.Count() -gt 0) {
-        $results += "build errors detected"
+        $results += 'build errors detected'
     }
     if ($results.Length -lt 1) {
-        $results += "no tests ran"
+        $results += 'no tests ran'
     } else {
-        $coverage = $t.Coverage().ToString("#.##")
+        $coverage = $t.Coverage().ToString('#.##')
         $results += "$coverage% coverage"
     }
     
