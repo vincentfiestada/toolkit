@@ -3,8 +3,9 @@
 
 . (Join-Path 'tools' 'std' 'std.ps1')
 . (Join-Path 'tools' 'std' 'help.ps1')
-. (Join-Path 'tools' 'nodejs' 'run.ps1')
 . (Join-Path 'tools' 'nodejs' 'install.ps1')
+. (Join-Path 'tools' 'nodejs' 'format.ps1')
+. (Join-Path 'tools' 'nodejs' 'run.ps1')
 
 function Invoke-Tools {
     param(
@@ -39,7 +40,7 @@ function Invoke-Tools {
             'format',
             'apply prettier style guide',
             {
-                Invoke-NpmScript format
+                Invoke-Prettier
             }
         ),
         [Tool]::new(
