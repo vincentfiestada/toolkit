@@ -69,7 +69,7 @@ function Invoke-Tools {
         ),
         [Tool]::new(
             'run',
-            "run `e[3m[args]`e[3m",
+            "run [args]",
             'compile and run',
             {
                 Invoke-GoRun $Arguments
@@ -77,7 +77,7 @@ function Invoke-Tools {
         ),
         [Tool]::new(
             'publish',
-            "publish `e[3mversion`e[3m",
+            "publish <version>",
             'publish a version to pkg.go.dev',
             {
                 Publish-GoModule $Arguments[0]
