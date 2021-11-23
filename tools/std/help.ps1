@@ -23,10 +23,17 @@ function Get-Toolkit {
         return
     }
 
+    $width = 10
+    foreach ($tool in $Tools) {
+        if ($tool.Example.Length -gt $width) {
+            $width = $tool.Example.Length
+        }
+    }
+
     Write-Info 'available commands:'
     Write-Host ''
     foreach ($tool in $Tools) {
-        Write-Host -NoNewLine " $($tool.Example)"
-        Write-Host " - $($tool.Description)"
+        Write-Host -NoNewLine " $($tool.Example.PadRight($width))"
+        Write-Host "   $($tool.Description)"
     }
 }
