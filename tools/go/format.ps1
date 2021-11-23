@@ -57,7 +57,7 @@ function Format-GoCode {
                     $errs.Add($path, $loc, $txt)
                 }
                 default {
-                    Write-Ok "formatted '$file'"
+                    Write-Ok "format '$file'"
                 }
             }
         }

@@ -26,9 +26,8 @@ function Invoke-Prettier {
                 $count += 1
                 $parsed = Select-String -Pattern $SUCCESS -InputObject $log
                 $path = $parsed.Matches.Groups[1].Value
-                $time = $parsed.Matches.Groups[2].Value
 
-                Write-Info "format '$path' in $time"
+                Write-Info "format '$path'"
             }
             $ERROR_START {
                 $count += 1
