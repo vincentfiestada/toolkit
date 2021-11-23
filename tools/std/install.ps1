@@ -24,7 +24,7 @@ function Install-Hooks {
     New-Item -Type Directory -Force (Join-Path ".git" "hooks") > $null
     foreach ($file in (Get-ChildItem (Join-Path "hooks" "*.*"))) {
         $name = $file.BaseName
-        $dest = (Join-Path ".git" "hooks" $name)
+        $dest = (Join-Path ".git" "hooks" $file.Name)
         Write-Info "installing $name hook"
 
         Copy-Item $file $dest
